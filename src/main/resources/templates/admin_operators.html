@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(table=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='operators')"></div>
+    <section>
+        <a class="btn btn-primary" href="/admin/operators/new">Добавить нового</a>
+        <table id="table" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Логин</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable( {
+                "language": {
+                    "url": 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/ru.json'
+                },
+                "processing": true,
+                "serverSide": true,
+                "searching": false,
+                "ajax": "/admin/rest/operators",
+                "columns": [
+                    {"data": "id"},
+                    {"data": "login"},
+                    {
+                        "mData": "id",
+                        "bSortable": false,
+                        "mRender": function (o) { return '<a class="btn btn-primary" href="/admin/operators/edit/' + o + '">Редактировать</a>'; },
+                        "width": "10%",
+                    },
+                    {
+                        "mData": "id",
+                        "bSortable": false,
+                        "mRender": function (o) { return '<a class="btn btn-danger" href="/admin/operators/delete/' + o + '">Удалить</a>'; },
+                        "width": "10%",
+                    }
+                ]
+            } );
+        } );
+    </script>
+</main>
+</body>
+</html>

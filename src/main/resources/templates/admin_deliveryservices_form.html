@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(form=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='deliveryservices')"></div>
+    <section>
+        <form th:action="${post_url}" method="post">
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input class="form-control" id="name" placeholder="Введите название" name="name" th:value="${name}" required>
+            </div>
+            <div class="form-group">
+                <label for="orderReceiveEmail">E-Mail</label>
+                <input type="email" class="form-control" id="orderReceiveEmail" placeholder="Введите E-Mail" name="orderReceiveEmail" th:value="${orderReceiveEmail}">
+            </div>
+            <div class="form-group">
+                <label for="orderReceiveLink">Вебхук</label>
+                <input type="url" class="form-control" id="orderReceiveLink" placeholder="Введите вебхук" name="orderReceiveLink" th:value="${orderReceiveLink}">
+            </div>
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary me-2">Сохранить</button>
+                <button type="button" class="btn btn-light"  onclick="history.back();">Назад</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

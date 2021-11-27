@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(form=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='products')"></div>
+    <section>
+        <form th:action="${post_url}" method="post">
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input class="form-control" id="name" placeholder="Введите название" name="name" th:value="${name}" required th:disabled="${!post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
+                <label for="volume">Размерность</label>
+                <input class="form-control" name="volume" id="volume" placeholder="Введите размерность" th:value="${volume}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
+                <label for="humanVolume">Единица размерности для человека</label>
+                <input class="form-control" name="humanVolume" id="humanVolume" placeholder="Введите размерность для человека" th:value="${humanVolume}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
+                <label for="price">Цена (в копейках)</label>
+                <input class="form-control" name="price" id="price" placeholder="Введите цену" th:value="${price}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
+                <label for="itemsPerPack">Кол-во единиц в упаковке</label>
+                <input class="form-control" name="itemsPerPack" id="itemsPerPack" placeholder="Введите кол-во единиц в упаковке" th:value="${itemsPerPack}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
+                <label for="store_name">Магазин</label>
+                <input class="form-control" id="store_name" placeholder="Введите магазин" th:value="${store_name}" th:required="${post_url.endsWith('/new')}" autocomplete="off">
+            </div>
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary me-2">Сохранить</button>
+                <button type="button" class="btn btn-light"  onclick="history.back();">Назад</button>
+            </div>
+            <input id="store_id" name="store" hidden th:value="${store_id}">
+        </form>
+    </section>
+</main>
+<script>
+    var input = document.querySelector("#store_name");
+
+    input.addEventListener("selection", function(event) {
+        input.value = event.detail.selection.value.name;
+        document.querySelector("#store_id").value = event.detail.selection.value.id;
+    });
+
+    new autoComplete({
+        selector: "#store_name",
+        data: {
+            src: async (q) => {
+                const source = await fetch('/admin/rest/stores/suggest?input=' + q);
+                return await source.json();
+            },
+            keys: ["name"],
+            cache: false,
+        },
+        resultsList: {
+            destination: "#store_name",
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(form=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='stores')"></div>
+    <section>
+        <form th:action="${post_url}" method="post">
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input class="form-control" id="name" placeholder="Введите название" name="name" th:value="${name}" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Адрес</label>
+                <input class="form-control" id="address" name="address" placeholder="Введите адрес" th:value="${address}" th:required="${post_url.endsWith('/new')}" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="retailer">Ретейлер</label>
+                <input class="form-control" id="retailer" placeholder="Введите ретейлера" th:value="${retailer_name}" th:required="${post_url.endsWith('/new')}" autocomplete="off">
+            </div>
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary me-2">Сохранить</button>
+                <button type="button" class="btn btn-light"  onclick="history.back();">Назад</button>
+            </div>
+            <input id="retailer_id" name="retailer" hidden th:value="${retailer_id}">
+            <input id="lat" name="lat" hidden th:value="${lat}">
+            <input id="lon" name="lon" hidden th:value="${lon}">
+        </form>
+    </section>
+</main>
+<script>
+    var input = document.querySelector("#retailer");
+
+    input.addEventListener("selection", function(event) {
+        input.value = event.detail.selection.value.name;
+        document.querySelector("#retailer_id").value = event.detail.selection.value.id;
+    });
+
+    new autoComplete({
+        selector: "#retailer",
+        data: {
+            src: async (q) => {
+                const source = await fetch('/admin/rest/retailers/suggest?input=' + q);
+                return await source.json();
+            },
+            keys: ["name"],
+            cache: false,
+        },
+        resultsList: {
+            destination: "#retailer",
+        }
+    });
+
+    var addr = document.querySelector("#address");
+
+    addr.addEventListener("selection", function(event) {
+        addr.value = event.detail.selection.value.name;
+        document.querySelector("#lat").value = event.detail.selection.value.lat;
+        document.querySelector("#lon").value = event.detail.selection.value.lon;
+    });
+
+    new autoComplete({
+        selector: "#address",
+        data: {
+            src: async (q) => {
+                const source = await fetch('/address/suggest?input=' + q);
+                return await source.json();
+            },
+            keys: ["name"],
+            cache: false,
+        },
+        resultsList: {
+            destination: "#address",
+        }
+    });
+</script>
+</body>
+</html>

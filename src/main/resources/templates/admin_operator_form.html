@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(form=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='operators')"></div>
+    <section>
+        <form th:action="${post_url}" method="post">
+            <div class="form-group">
+                <label for="login">Логин</label>
+                <input class="form-control" id="login" placeholder="Введите логин" name="login" th:value="${login}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Пароль" th:value="${password}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary me-2">Сохранить</button>
+                <button type="button" class="btn btn-light"  onclick="history.back();">Назад</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

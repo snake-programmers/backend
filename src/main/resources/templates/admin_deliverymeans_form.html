@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(form=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='deliverymeans')"></div>
+    <section>
+        <form th:action="${post_url}" method="post">
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input class="form-control" id="name" placeholder="Введите название" name="name" th:value="${name}" required>
+            </div>
+            <div class="form-group">
+                <label for="minMeters">Мин. расстояние (метры)</label>
+                <input class="form-control" id="minMeters" placeholder="Введите мин. расстояние" name="minMeters" th:value="${minMeters}" required>
+            </div>
+            <div class="form-group">
+                <label for="maxMeters">Макс. расстояние (метры)</label>
+                <input class="form-control" id="maxMeters" placeholder="Введите макс. расстояние" name="maxMeters" th:value="${maxMeters}" required>
+            </div>
+            <div class="form-group">
+                <label for="pricePerKm">Прайс за километр (копейки)</label>
+                <input class="form-control" id="pricePerKm" placeholder="Введите прайс" name="pricePerKm" th:value="${pricePerKm}" required>
+            </div>
+            <div class="form-group">
+                <label for="deliveryservice">Сервис доставки</label>
+                <input class="form-control" id="deliveryservice" placeholder="Введите сервис доставки" th:value="${deliveryservice_name}" th:required="${post_url.endsWith('/new')}" autocomplete="off">
+            </div>
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary me-2">Сохранить</button>
+                <button type="button" class="btn btn-light"  onclick="history.back();">Назад</button>
+            </div>
+            <input id="deliveryservice_id" name="deliveryservice" hidden th:value="${deliveryservice_id}">
+        </form>
+    </section>
+</main>
+<script>
+    var input = document.querySelector("#deliveryservice");
+
+    input.addEventListener("selection", function(event) {
+        input.value = event.detail.selection.value.name;
+        document.querySelector("#deliveryservice_id").value = event.detail.selection.value.id;
+    });
+
+    new autoComplete({
+        selector: "#deliveryservice",
+        data: {
+            src: async (q) => {
+                const source = await fetch('/admin/rest/deliveryservices/suggest?input=' + q);
+                return await source.json();
+            },
+            keys: ["name"],
+            cache: false,
+        },
+        resultsList: {
+            destination: "#deliveryservice",
+        }
+    });
+</script>
+</body>
+</html>

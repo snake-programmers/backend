@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/admin_head :: admin_head(table=true)"></div>
+</head>
+<body style="min-height: 100vh">
+<main>
+    <div th:replace="fragments/sidebar :: sidebar(selected='producttypes')"></div>
+    <section>
+        <table id="table" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Размерность</th>
+                <th>Единица размерности для человека</th>
+            </tr>
+            </thead>
+        </table>
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable( {
+                "language": {
+                    "url": 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/ru.json'
+                },
+                "processing": true,
+                "serverSide": true,
+                "searching": false,
+                "ajax": "/admin/rest/producttypes",
+                "columns": [
+                    {"data": "id"},
+                    {"data": "name"},
+                    {"data": "volume"},
+                    {"data": "humanVolume"}
+                ]
+            } );
+        } );
+    </script>
+</main>
+</body>
+</html>

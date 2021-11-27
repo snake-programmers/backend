@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px" th:fragment="sidebar" id="sidebar">
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/admin/operators" class="nav-link" aria-current="page" th:classappend="${selected == 'operators' ? 'active' : 'text-white'}" >
+                <i class="fas fa-user-circle"></i>
+                Операторы
+            </a>
+        </li>
+        <li>
+            <a href="/admin/retailers" class="nav-link text-white" th:classappend="${selected == 'retailers' ? 'active' : 'text-white'}" >
+                <i class="fas fa-briefcase"></i>
+                Ретейлеры
+            </a>
+        </li>
+        <li>
+            <a href="/admin/stores" class="nav-link text-white" th:classappend="${selected == 'stores' ? 'active' : 'text-white'}" >
+                <i class="fas fa-store"></i>
+                Магазины
+            </a>
+        </li>
+        <li>
+            <a href="/admin/products" class="nav-link text-white" th:classappend="${selected == 'products' ? 'active' : 'text-white'}" >
+                <i class="fas fa-hamburger"></i>
+                Продукты
+            </a>
+        </li>
+        <li>
+            <a href="/admin/producttypes" class="nav-link text-white" th:classappend="${selected == 'producttypes' ? 'active' : 'text-white'}" >
+                <i class="fas fa-pizza-slice"></i>
+                Типы продуктов
+            </a>
+        </li>
+        <li>
+            <a href="/admin/deliveryservices" class="nav-link text-white" th:classappend="${selected == 'deliveryservices' ? 'active' : 'text-white'}" >
+                <i class="fas fa-truck"></i>
+                Сервисы доставки
+            </a>
+        </li>
+        <li>
+            <a href="/admin/deliverypoints" class="nav-link text-white" th:classappend="${selected == 'deliverypoints' ? 'active' : 'text-white'}" >
+                <i class="fas fa-home"></i>
+                Точки доставки
+            </a>
+        </li>
+        <li>
+            <a href="/admin/deliverymeans" class="nav-link text-white" th:classappend="${selected == 'deliverymeans' ? 'active' : 'text-white'}" >
+                <i class="fas fa-car"></i>
+                Способы доставки
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
