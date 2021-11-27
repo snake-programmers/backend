@@ -18,6 +18,7 @@ public class ProductTypeService {
             type.setName(product.getName().toLowerCase());
             type.setHumanVolume(product.getHumanVolume());
             type.setVolume(product.getVolume());
+            type.setPicture(product.getPicture());
             return productTypeRepository.save(type);
         });
     }

@@ -13,6 +13,10 @@
                 <input class="form-control" id="name" placeholder="Введите название" name="name" th:value="${name}" required th:disabled="${!post_url.endsWith('/new')}">
             </div>
             <div class="form-group">
+                <label for="picture">Картинка</label>
+                <input type="url" class="form-control" name="picture" id="picture" placeholder="Введите картинку" th:value="${picture}" th:required="${post_url.endsWith('/new')}">
+            </div>
+            <div class="form-group">
                 <label for="volume">Размерность</label>
                 <input class="form-control" name="volume" id="volume" placeholder="Введите размерность" th:value="${volume}" th:required="${post_url.endsWith('/new')}">
             </div>

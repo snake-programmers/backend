@@ -15,6 +15,8 @@ public class Product {
     private String name;
     private String volume;
     private String humanVolume;
+    @Column(columnDefinition = "TEXT")
+    private String picture;
     /**
      * / 100
      */

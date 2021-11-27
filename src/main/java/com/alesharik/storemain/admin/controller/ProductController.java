@@ -42,6 +42,7 @@ public class ProductController {
         return new ModelAndView("admin_products_form", Map.of(
                 "post_url", "/admin/products/new",
                 "name", "",
+                "picture", "",
                 "volume", "",
                 "humanVolume", "",
                 "price", 0,
@@ -54,6 +55,7 @@ public class ProductController {
     @PostMapping("/admin/products/new")
     public ModelAndView postNewProduct(
             @RequestParam("name") String name,
+            @RequestParam("picture") String picture,
             @RequestParam("volume") String volume,
             @RequestParam("humanVolume") String humanVolume,
             @RequestParam("price") int price,
@@ -62,6 +64,7 @@ public class ProductController {
     ) {
         var entity = new Product();
         entity.setName(name);
+        entity.setPicture(picture);
         entity.setVolume(volume);
         entity.setHumanVolume(humanVolume);
         entity.setPrice(price);
@@ -78,6 +81,7 @@ public class ProductController {
         return new ModelAndView("admin_products_form", Map.of(
                 "post_url", "/admin/products/edit/" + entity.getId(),
                 "name", entity.getName(),
+                "picture", entity.getPicture(),
                 "volume", entity.getVolume(),
                 "humanVolume", entity.getHumanVolume(),
                 "price", entity.getPrice(),
@@ -91,6 +95,7 @@ public class ProductController {
     public ModelAndView postEditProduct(
             @PathVariable("id") Long id,
             @RequestParam("volume") String volume,
+            @RequestParam("picture") String picture,
             @RequestParam("humanVolume") String humanVolume,
             @RequestParam("price") int price,
             @RequestParam("itemsPerPack") int itemsPerPack,
@@ -98,6 +103,7 @@ public class ProductController {
     ) {
         var entity = productRepository.findById(id).orElseThrow();
         entity.setVolume(volume);
+        entity.setPicture(picture);
         entity.setHumanVolume(humanVolume);
         entity.setPrice(price);
         entity.setItemsPerPack(itemsPerPack);

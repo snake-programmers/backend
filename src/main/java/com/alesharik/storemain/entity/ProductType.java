@@ -18,6 +18,8 @@ public class ProductType {
     private String name;
     private String volume;
     private String humanVolume;
+    @Column(columnDefinition = "TEXT")
+    private String picture;
     @OneToMany(mappedBy = "productType")
     private Set<Product> products;
 }
