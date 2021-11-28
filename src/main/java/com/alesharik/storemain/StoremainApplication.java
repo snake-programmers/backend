@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -43,5 +45,12 @@ public class StoremainApplication {
     @Bean
     public GeometryFactory geometryFactory() {
         return new GeometryFactory();
+    }
+
+    @Bean
+    public HttpFirewall httpFirewall() {
+        var firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedDoubleSlash(true);
+        return firewall;
     }
 }

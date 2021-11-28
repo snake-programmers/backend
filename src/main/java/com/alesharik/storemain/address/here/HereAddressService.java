@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class HereAddressService implements AddressService {
 
     @Override
     public List<AddressDto> suggest(String input) {
+        if (input.isBlank()) return Collections.emptyList();
         var headers = new HttpHeaders();
 //        headers.set("Authorization", "ApiKey " + properties.getApiKey());
         var entity = new HttpEntity<String>(headers);

@@ -14,6 +14,7 @@ public class ProductDto {
     private final int price;
     private final int itemsPerPack;
     private final String storeName;
+    private final String picture;
 
     public ProductDto(Product product) {
         this.id = product.getId();
@@ -21,6 +22,7 @@ public class ProductDto {
         this.volume = product.getVolume();
         this.humanVolume = product.getHumanVolume();
         this.price = product.getPrice();
+        this.picture = product.getPicture();
         this.itemsPerPack = product.getItemsPerPack();
         this.storeName = product.getStore().getName();
     }

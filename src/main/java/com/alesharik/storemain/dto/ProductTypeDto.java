@@ -11,11 +11,13 @@ public class ProductTypeDto {
     private String name;
     private String volume;
     private String humanVolume;
+    private String picture;
 
     public ProductTypeDto(ProductType type) {
         this.id = type.getId();
         this.name = type.getName();
         this.volume = type.getVolume();
         this.humanVolume = type.getHumanVolume();
+        this.picture = type.getPicture();
     }
 }

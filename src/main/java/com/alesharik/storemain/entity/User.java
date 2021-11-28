@@ -1,7 +1,7 @@
 package com.alesharik.storemain.entity;
 
 import lombok.Data;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,9 +20,9 @@ public class User {
     private String name;
     @Column(columnDefinition = "geometry(Point,4326)", nullable = false)
     private Point homeLocation;
+    @Column(columnDefinition = "TEXT")
+    private String homeAddress;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserBasket> basket;
     @OneToMany(mappedBy = "user")
     private Set<Order> orders;
 }
