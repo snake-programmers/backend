@@ -1,7 +1,7 @@
 package com.alesharik.storemain.entity;
 
 import lombok.Data;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,6 +25,9 @@ public class Order {
     private String status;
     @Column(columnDefinition = "geometry(Point,4326)", nullable = false)
     private Point destination;
+    private int count;
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> items;
+
+
 }

@@ -14,6 +14,7 @@ public class OrderDto {
     private final String deliveredBy;
     private final String deliveryService;
     private final String status;
+    private final int count;
     private final Set<OrderItemDto> items;
 
     public OrderDto(Order order) {
@@ -21,6 +22,7 @@ public class OrderDto {
         this.deliveredBy = order.getMean().getName();
         this.deliveryService = order.getMean().getDeliveryService().getName();
         this.status = order.getStatus();
+        this.count = order.getCount();
         this.items = order.getItems().stream().map(OrderItemDto::new).collect(Collectors.toSet());
     }
 }
